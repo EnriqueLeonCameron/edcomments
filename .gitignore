@@ -1,4 +1,8 @@
 #carpetas
 .vscode
+
 #Ejecutables
 edcomments.exe
+
+##archivo de configuracion
+config.json
