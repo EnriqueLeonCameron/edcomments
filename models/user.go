@@ -4,6 +4,7 @@ import (
 	"github.com/jinzhu/gorm"
 )
 
+//User usuario del sistma
 type User struct {
 	gorm.Model
 	/*como va ser una api json tengo que decirle a go que en json el nombre no va en mayuscula 

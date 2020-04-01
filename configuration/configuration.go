@@ -10,7 +10,7 @@ import (
 	_"github.com/go-sql-driver/mysql"
 )
 
-type Configuration struct {
+type configuration struct {
 	Server   string
 	Port     string
 	User     string
@@ -18,8 +18,8 @@ type Configuration struct {
 	Database string
 }
 
-func GetConfiguration() Configuration {
-	var c Configuration
+func getConfiguration() configuration {
+	var c configuration
 	file, err := os.Open("./config.json")
 
 	if err != nil {
@@ -35,9 +35,9 @@ func GetConfiguration() Configuration {
 	return c
 }
 
-//funcion que devuelve una conexion a la base de datos
+//GetConnection funcion que obtiene y devuelve una conexion a la base de datos
 func GetConnection() *gorm.DB {
-	c := GetConfiguration() //la configuracion de la Base de datos //le doy la info del archivo json
+	c := getConfiguration() //la configuracion de la Base de datos //le doy la info del archivo json
 	//user:password@tcp(server:port)/nombreDataBase?charset=utf8&parseTime=true&loc=Local
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=true&loc=Local", c.User, c.Password, c.Server, c.Port, c.Database)
 	//Sprintf me devuelve un string formateado con la info que yo le pase

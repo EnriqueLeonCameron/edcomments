@@ -7,6 +7,7 @@ import (
 	"github.com/EnriqueLeonCameron/edcomments/models"
 )
 
+//Migrate permite crear las tablas en l aBD
 func Migrate()  {
 	db := configuration.GetConnection()
 	defer db.Close()
