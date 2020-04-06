@@ -3,8 +3,12 @@ package main
 import (
 	"log"
 	"flag"
-
+	"net/http"
+	
+	"github.com/urfave/negroni"
+	
 	"github.com/EnriqueLeonCameron/edcomments/migration"
+	"github.com/EnriqueLeonCameron/edcomments/routes"
 )
 
 func main()  {
@@ -20,7 +24,25 @@ func main()  {
 		migration.Migrate()
 		log.Println("finalizó la migracion")
 	}
+
+	//inicia las rutas
+	router := routes.InitRoutes()
+
+	//inicia los middlewares
+	n := negroni.Classic()
+	n.UseHandler(router)
+
+	//inicia el servidor
+	server := &http.Server{
+		Addr: ":8080",
+		Handler: n,
+	}
+
+	log.Println("Iniciado el servidor en http://localhost:8080")
+	log.Println(server.ListenAndServe())
+	log.Println("Finalizó la ejecucion del programa")
 }
 //si coloco ./edcomments.exe --migration yes 
 //hace la migracion
 //si no le pongo el -migration lo toma como un no y no la hace
+
